@@ -1,0 +1,35 @@
+<div class="container">
+  <div *ngIf="cars?.length==0" class="alert alert-warning" role="alert">
+    No Cars found.
+  </div>
+  <div class="row gy-5">
+    <div *ngFor="let c of cars" class="col-sm">
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <a routerLink="/cars/{{c.model}}">
+            <img class="card-img-top" src="{{c.imageUrl}}" alt="Card image cap">
+          </a>
+
+          <div class="card-body">
+            <h5 class="card-title">{{c.model}}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{c.dayPrice}}</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul>
+          <div class="card-body">
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
