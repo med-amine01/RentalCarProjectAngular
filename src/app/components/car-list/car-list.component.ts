@@ -11,8 +11,8 @@ import {ActivatedRoute} from "@angular/router";
 export class CarListComponent implements OnInit {
 
   cars : Car[] = [];
-  searchMode!: boolean;
-  currentCarId!: number;
+  searchModeId!: boolean;
+  searchModeBrand!: boolean;
 
   constructor(private carService:CarService,
               private route: ActivatedRoute) {
@@ -27,12 +27,17 @@ export class CarListComponent implements OnInit {
 
   listCars(){
     //we set up the router in app.module with :keyword
-    this.searchMode = this.route.snapshot.paramMap.has("id");
+    this.searchModeId = this.route.snapshot.paramMap.has("id");
+    this.searchModeBrand = this.route.snapshot.paramMap.has("brand");
 
-    if(this.searchMode) {
-        this.getCarById();
+
+    if(this.searchModeId) {
+      this.getCarById();
     }
-    else {
+    else if(this.searchModeBrand) {
+      this.getCarByBrand();
+    }
+    else{
       this.getAllCars();
     }
 
@@ -44,26 +49,26 @@ export class CarListComponent implements OnInit {
     this.carService.getAllCars().subscribe(
       data =>{
         this.cars = data;
-        console.log(this.cars)
       }
     );
   }
 
   getCarById(){
-    const hasCarId: boolean = this.route.snapshot.paramMap.has('id');
-    if(hasCarId) {
-      // get the id param and convert that to a number using + (the ! at the end is to manage the null Object)
-      this.currentCarId = +this.route.snapshot.paramMap.get('id')!;
-    }
-    else {
-      //default it will take the category 1
-      //idea: we can return 0 and define that in the route and redirect the page to component: 404 not found
-      this.currentCarId = 1;
-    }
-
-    this.carService.getOneCar(this.currentCarId).subscribe(
+    const carId = +this.route.snapshot.paramMap.get('id')!;
+    this.carService.getOneCar(carId).subscribe(
       data=>{
         this.cars[0] = data;
+      }
+    );
+  }
+
+
+  private getCarByBrand() {
+    const brandSearch = this.route.snapshot.paramMap.get('brand')!;
+
+    this.carService.getCarByBrand(brandSearch).subscribe(
+      data=>{
+        this.cars = data;
       }
     );
   }

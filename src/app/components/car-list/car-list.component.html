@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
   <div *ngIf="cars?.length==0" class="alert alert-warning" role="alert">
     No Cars found.
   </div>
@@ -6,22 +6,22 @@
     <div *ngFor="let c of cars" class="col-sm">
       <div class="col">
         <div class="card" style="width: 18rem;">
-          <a routerLink="/cars/{{c.model}}">
-            <img class="card-img-top" src="{{c.imageUrl}}" alt="Card image cap">
+          <a routerLink="/cars/{{c.id}}">
+            <img class="card-img-top" src="/assets/images/cars/test.png" alt="Card image cap">
           </a>
 
           <div class="card-body">
-            <h5 class="card-title">{{c.model}}</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <h5 class="card-title">{{c.brand}}</h5>
+            <p class="card-title">{{c.model}}</p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{c.dayPrice}}</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
+            <li class="list-group-item">{{c.fuelType}}</li>
+            <li class="list-group-item">{{c.gearType}}</li>
+            <li class="list-group-item">DT <strong>{{c.dayPrice}}</strong> /DAY</li>
           </ul>
           <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+            <a href="#" class="btn btn-primary btn-sm m-lg-1">BOOK NOW</a>
+            <a href="#" class="btn btn-success btn-sm m-lg-1">DETAILS</a>
           </div>
         </div>
       </div>

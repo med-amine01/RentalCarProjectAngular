@@ -14,6 +14,10 @@ export class CarService {
   //we inject the httpClient to use http methodes
   constructor(private httpClient: HttpClient) { }
 
+  addNewCar(car: Car){
+      return this.httpClient.post<Car>(this.carApiUrl,car);
+  }
+
   getAllCars():Observable<Car[]>{
     return this.getCars(this.carApiUrl);
   }
@@ -25,9 +29,9 @@ export class CarService {
     return this.httpClient.get<Car>(oneCarUrl);
   }
 
-  getCarByModel(carModel:string):Observable<Car[]>{
-    const carModelUrl = this.carApiUrl+'search/findByModelContaining?model='+carModel;
-    return this.getCars(carModelUrl);
+  getCarByBrand(carBrand:string):Observable<Car[]>{
+    const carBrandUrl = this.carApiUrl+'/search/findByBrandContaining?brand='+carBrand;
+    return this.getCars(carBrandUrl);
   }
 
   //return an observable : map the JSON data from spring data rest to product array

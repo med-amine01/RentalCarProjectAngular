@@ -1,0 +1,83 @@
+<div class="container col-md-11">
+  <h1 class="mt-4">Add a car</h1>
+
+  <form [formGroup]="carFormGroup" class="mt-3" (ngSubmit)="onSubmit()">
+    <div formGroupName="carInfo">
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <div class="form-floating mb-5 mb-md-0">
+            <input formControlName="brand"
+                   class="form-control"
+                   type="text"
+                   placeholder="Enter your first name"/>
+            <label class="form-label">Brand</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-floating mb-3 mb-md-0">
+            <input formControlName="model"
+                   class="form-control"
+                   type="text"
+                   placeholder="Enter your first name"/>
+            <label class="form-label">Model</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-floating mb-3 mb-md-0">
+            <input formControlName="serie"
+                   class="form-control"
+                   type="text"
+                   placeholder="Enter your first name"/>
+            <label class="form-label">Serie</label>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="form-floating mb-3 mb-md-0">
+            <input formControlName="fuelType"
+                   class="form-control"
+                   type="text"
+                   placeholder="Enter your first name"/>
+            <label class="form-label">Fuel Type</label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-floating mb-3 mb-md-0">
+            <input formControlName="gearType"
+                   class="form-control"
+                   type="text"
+                   placeholder="Enter your first name"/>
+            <label class="form-label">Gear Type</label>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-floating mb-3 mb-md-0">
+          <div class="input-group input-group-lg">
+            <input type="file" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="col mt-3">
+        <div class="form-floating mb-3 mb-md-0">
+          <input formControlName="dayPrice"
+                 class="form-control"
+                 type="number"
+                 placeholder="Enter your first name"/>
+          <label class="form-label">Day Price</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Add Car</button>
+    </div>
+  </form>
+
+</div>
+
+
