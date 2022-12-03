@@ -15,6 +15,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 //when you define your routes you GO from most SPECIFIC to the most GENERIC
 //in imports we will call the array of routes : RouterModule.forRoot(routes)
 const routes: Routes = [
+  {path: 'update/car/:id', component: CarAddComponent},
   {path: 'add/car', component: CarAddComponent},
   {path: 'search/:brand', component: CarListComponent},
   {path: 'cars/:id', component: CarListComponent},

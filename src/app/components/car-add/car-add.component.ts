@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
-import {Router} from "@angular/router";
-import {FormService} from "../../service/form.service";
+import {ActivatedRoute} from "@angular/router";
 import {CarService} from "../../service/car.service";
 import {Car} from "../../common/car";
 
@@ -15,54 +14,118 @@ export class CarAddComponent implements OnInit{
 
   //main form
   carFormGroup!:FormGroup;
+  carToUpdate : Car = new Car();
+  carAddBool = false;
+  carUpdateBool = false;
+  id!:number;
+  btnValue = 'Add Car';
 
   //inject form services
   constructor(private formBuilder: FormBuilder,
-              private formService : FormService,
               private carService : CarService,
-              private router: Router) {
+              private route: ActivatedRoute) {
   }
   ngOnInit(): void {
+
+    this.initCarToUpdate();
+
+    this.formGroupInit();
+  }
+  get brand(){return this.carFormGroup.get('carInfo.brand');}
+  get model(){return this.carFormGroup.get('carInfo.model');}
+  get serie(){return this.carFormGroup.get('carInfo.serie');}
+  get fuelType(){return this.carFormGroup.get('carInfo.fuelType');}
+  get gearType(){return this.carFormGroup.get('carInfo.gearType');}
+  get dayPrice(){return this.carFormGroup.get('carInfo.dayPrice');}
+
+
+  formGroupInit(){
     this.carFormGroup = this.formBuilder.group({
       carInfo : this.formBuilder.group({
-        brand : new FormControl('',[Validators.required]),
-        model : new FormControl('',[Validators.required]),
-        serie : new FormControl('',[Validators.required]),
-        fuelType : new FormControl('',[Validators.required]),
-        gearType : new FormControl('',[Validators.required]),
-        dayPrice : new FormControl('',[Validators.required]),
+        brand : new FormControl('', [
+          Validators.required,
+          Validators.minLength(2)]),
+        model : new FormControl('',[
+          Validators.required,
+          Validators.minLength(2)]),
+        serie : new FormControl('',[
+          Validators.required,
+          Validators.pattern("[0-9]{2,5} tun [0-9]{2,5}"),
+          Validators.minLength(2)]),
+        fuelType : new FormControl('',[
+          Validators.required,
+          Validators.minLength(2)]),
+        gearType : new FormControl('',[
+          Validators.required,
+          Validators.minLength(2)]),
+        dayPrice : new FormControl('',[
+          Validators.required,
+          Validators.pattern("^[0-9]+(?:\\.[0-9]+)?$")])
       })
     });
   }
 
-  get brand(){return this.carFormGroup.get('carInfo.brand')?.value;}
-  get model(){return this.carFormGroup.get('carInfo.model')?.value;}
-  get serie(){return this.carFormGroup.get('carInfo.serie')?.value;}
-  get fuelType(){return this.carFormGroup.get('carInfo.fuelType')?.value;}
-  get gearType(){return this.carFormGroup.get('carInfo.gearType')?.value;}
-  get dayPrice(){return this.carFormGroup.get('carInfo.dayPrice')?.value;}
+  initCarToUpdate(){
+    //if were in update the fields will be initilized
+    if(this.route.snapshot.paramMap.has('id')) {
+      this.id = +this.route.snapshot.paramMap.get('id')!;
+      this.carService.getOneCar(this.id).subscribe(
+        data=>{
+          this.carToUpdate = data;
+        });
+      this.btnValue = 'Update Car';
+    }
+  }
 
-
-  onSubmit(){
+  insertCar(){
     let car = new Car();
-    car.brand = this.brand;
-    car.model = this.model;
-    car.serie = this.serie;
-    car.fuelType = this.fuelType;
-    car.gearType = this.gearType;
-    car.dayPrice = this.dayPrice;
+    car.brand = this.brand?.value;
+    car.model = this.model?.value;
+    car.serie = this.serie?.value;
+    car.fuelType = this.fuelType?.value;
+    car.gearType = this.gearType?.value;
+    car.dayPrice = this.dayPrice?.value;
 
     this.carService.addNewCar(car).subscribe({
       next: response =>{
-        //our response from the api has the tracking number => return as JSON (response.orderTrackingNumber)
-        alert("the car has been added the id is  : "+response.id);
-        //reset the cart
+        //our response from the api has car id => return as JSON (car.id)
+        // alert("the car has been added the id is  : "+response.id);
+        this.carAddBool = true;
 
-      },
-      error: err => {
+      }, error: err => {
         alert("There was an error: "+err.message());
       }
     });
   }
+
+  updateCar(){
+    this.carService.updateCar(this.carToUpdate).subscribe(
+      data=>{
+        this.carUpdateBool = true;
+
+      },error => {
+      alert("There was an error: "+error.message());
+    });
+  }
+
+  onSubmit(){
+    if(this.carFormGroup.invalid){
+      this.carFormGroup.markAllAsTouched();
+      return;
+    }
+
+    if(this.btnValue == 'Add Car'){
+      this.insertCar();
+    }
+
+    if(this.btnValue == 'Update Car'){
+      this.updateCar();
+    }
+
+    this.carFormGroup.reset();
+
+  }
+
+
 
 }
