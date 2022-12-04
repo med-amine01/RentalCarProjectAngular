@@ -19,10 +19,16 @@
             <li class="list-group-item">{{c.gearType}}</li>
             <li class="list-group-item">DT <strong>{{c.dayPrice}}</strong> /DAY</li>
           </ul>
-          <div class="card-body">
-            <a routerLink="/update/car/{{c.id}}" class="btn btn-primary btn-sm m-lg-1">UPDATE</a>
-            <a  (click)="openPopup(c.id)" class="btn btn-warning btn-sm m-lg-1">DELETE</a>
-            <a href="#" class="btn btn-success  btn-sm m-lg-1">DETAILS</a>
+          <div class="card-footer">
+            <a href="#" class="link-info">
+              <i class="fa-solid fa-circle-info"></i>
+            </a>
+            <a routerLink="/update/car/{{c.id}}" class="link-primary m-lg-4">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href="#" (click)="openPopup(c.id)" class="link-danger">
+              <i class="fa-solid fa-trash"></i>
+            </a>
           </div>
           <!-- Modal -->
           <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
