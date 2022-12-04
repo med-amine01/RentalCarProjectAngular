@@ -13,6 +13,8 @@ export class CarListComponent implements OnInit {
   cars : Car[] = [];
   searchModeId!: boolean;
   searchModeBrand!: boolean;
+  displayStyle = "none";
+  carIdToDelete : number = 0;
 
   constructor(private carService:CarService,
               private route: ActivatedRoute) {
@@ -25,6 +27,24 @@ export class CarListComponent implements OnInit {
     );
   }
 
+
+  openPopup(id: number) {
+    this.carIdToDelete = id;
+    this.displayStyle = "block";
+  }
+  closePopup() {
+    this.displayStyle = "none";
+  }
+
+  deleteCar(){
+    this.carService.deleteCar(this.carIdToDelete).subscribe(
+      data=>{
+        this.closePopup();
+        this.listCars();
+      }
+    );
+  }
+
   listCars(){
     //we set up the router in app.module with :keyword
     this.searchModeId = this.route.snapshot.paramMap.has("id");
@@ -32,6 +52,7 @@ export class CarListComponent implements OnInit {
 
 
     if(this.searchModeId) {
+      console.log(this.searchModeId);
       this.getCarById();
     }
     else if(this.searchModeBrand) {
@@ -69,6 +90,7 @@ export class CarListComponent implements OnInit {
     this.carService.getCarByBrand(brandSearch).subscribe(
       data=>{
         this.cars = data;
+        console.log(data);
       }
     );
   }

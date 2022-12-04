@@ -1,10 +1,10 @@
-<div class="container mt-3">
+<div class="container mt-lg-5">
   <div *ngIf="cars?.length==0" class="alert alert-warning" role="alert">
     No Cars found.
   </div>
   <div class="row gy-5">
     <div *ngFor="let c of cars" class="col-sm">
-      <div class="col">
+
         <div class="card" style="width: 18rem;">
           <a routerLink="/cars/{{c.id}}">
             <img class="card-img-top" src="/assets/images/cars/test.png" alt="Card image cap">
@@ -21,15 +21,32 @@
           </ul>
           <div class="card-body">
             <a routerLink="/update/car/{{c.id}}" class="btn btn-primary btn-sm m-lg-1">UPDATE</a>
-            <a href="#" class="btn btn-warning btn-sm m-lg-1">DELETE</a>
+            <a  (click)="openPopup(c.id)" class="btn btn-warning btn-sm m-lg-1">DELETE</a>
             <a href="#" class="btn btn-success  btn-sm m-lg-1">DETAILS</a>
           </div>
+          <!-- Modal -->
+          <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete Car</h4>
+                </div>
+                <div class="modal-body">
+                  <p><strong>Are you sure you want to delete this car ?</strong></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button>
+                  <button type="button" class="btn btn-danger" (click)="deleteCar()">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
   </div>
 
 </div>
+
 
 
 

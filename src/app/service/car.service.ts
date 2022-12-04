@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map, Observable, Subject} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Car} from "../common/car";
 
 @Injectable({
@@ -13,6 +13,10 @@ export class CarService {
 
   //we inject the httpClient to use http methodes
   constructor(private httpClient: HttpClient) { }
+
+  deleteCar(carid: number){
+    return this.httpClient.delete<Car>(this.carApiUrl+'/deletecar/'+carid);
+  }
 
   updateCar(car: Car){
     return this.httpClient.patch<Car>(this.carApiUrl+'/updatecar',car);
@@ -27,9 +31,10 @@ export class CarService {
   }
 
   getOneCar(carId:number):Observable<Car>{
+    const searchCarUrl = this.carApiUrl+'/'+carId;
     //we will return a single Car no need unwarp and wrap
     //cuz the json file maps directly the Car class
-    return this.httpClient.get<Car>(this.carApiUrl+'/'+carId);
+    return this.httpClient.get<Car>(searchCarUrl);
   }
 
   getCarByBrand(carBrand:string):Observable<Car[]>{
