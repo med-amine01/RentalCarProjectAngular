@@ -30,10 +30,10 @@ export class CarAddComponent implements OnInit{
               private http : HttpClient) {
   }
   ngOnInit(): void {
-
-    this.initCarToUpdate();
-
-    this.formGroupInit();
+    this.route.paramMap.subscribe(()=> {
+      this.initCarToUpdate();
+      this.formGroupInit();
+    });
 
   }
   get brand(){return this.carFormGroup.get('carInfo.brand');}
