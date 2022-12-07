@@ -13,10 +13,12 @@ import { SideNavBarComponent } from './components/side-nav-bar/side-nav-bar.comp
 import { CarAddComponent } from './components/car-add/car-add.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { CarDetailsComponent } from './components/car-details/car-details.component';
+import { ClientAddComponent } from './components/client-add/client-add.component';
 
 //when you define your routes you GO from most SPECIFIC to the most GENERIC
 //in imports we will call the array of routes : RouterModule.forRoot(routes)
 const routes: Routes = [
+  {path: 'client/add', component: ClientAddComponent},
   {path: 'cardetails/car/:id', component: CarDetailsComponent},
   {path: 'update/car/:id', component: CarAddComponent},
   {path: 'add/car', component: CarAddComponent},
@@ -37,7 +39,8 @@ const routes: Routes = [
     CarSearchComponent,
     SideNavBarComponent,
     CarAddComponent,
-    CarDetailsComponent
+    CarDetailsComponent,
+    ClientAddComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

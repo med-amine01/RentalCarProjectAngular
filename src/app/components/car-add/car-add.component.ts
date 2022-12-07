@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {CarService} from "../../service/car.service";
 import {Car} from "../../common/car";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-car-add',
@@ -19,18 +20,21 @@ export class CarAddComponent implements OnInit{
   carUpdateBool = false;
   id!:number;
   btnValue = 'Add Car';
+  file!: any ;
 
   //inject form services
 
   constructor(private formBuilder: FormBuilder,
               private carService : CarService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private http : HttpClient) {
   }
   ngOnInit(): void {
 
     this.initCarToUpdate();
 
     this.formGroupInit();
+
   }
   get brand(){return this.carFormGroup.get('carInfo.brand');}
   get model(){return this.carFormGroup.get('carInfo.model');}
@@ -38,6 +42,11 @@ export class CarAddComponent implements OnInit{
   get fuelType(){return this.carFormGroup.get('carInfo.fuelType');}
   get gearType(){return this.carFormGroup.get('carInfo.gearType');}
   get dayPrice(){return this.carFormGroup.get('carInfo.dayPrice');}
+
+  onChange(event: Event) {
+    let result = (event.target as HTMLInputElement).files;
+    this.file = result!.item(0);
+  }
 
 
   formGroupInit(){
@@ -80,11 +89,23 @@ export class CarAddComponent implements OnInit{
 
   insertCar(){
     let car = new Car();
+
+    //upload image on server
+    // let formData = new FormData();
+    // formData.set("img",this.file)
+    // this.http.post('http://localhost:4200/src/assets/images/cars',formData).subscribe(
+    //   (response)=>{
+    //     alert(response);
+    //   }
+    // )
+
+
     car.brand = this.brand?.value;
     car.model = this.model?.value;
     car.serie = this.serie?.value;
     car.fuelType = this.fuelType?.value;
     car.gearType = this.gearType?.value;
+    car.imageUrl = "assets/images/cars/"+this.file!.name;
     car.dayPrice = this.dayPrice?.value;
 
     this.carService.addNewCar(car).subscribe({
