@@ -25,8 +25,10 @@
               "src/assets"
             ],
             "styles": [
-              "../node_modules/bootstrap/dist/css/bootstrap.css",
-              "src/styles.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/styles.css",
+              "./node_modules/@okta/okta-signin-widget/dist/css/okta-sign-in.min.css"
+
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.js",
