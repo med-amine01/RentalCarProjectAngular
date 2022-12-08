@@ -1,7 +1,7 @@
 <div class="container col-md-11">
   <h1 class="mt-4">{{btnValue}}</h1>
   <div *ngIf="carAddBool" class="alert alert-success" role="alert">
-    Car Added Successfully.
+    You Are Registered Successfully.
   </div>
   <div *ngIf="carUpdateBool" class="alert alert-success" role="alert">
     Car Updated Successfully.
@@ -119,7 +119,11 @@
       <div class="">
         <div class="form-floating">
           <div class="input-group input-group-lg">
-            <input type="file" class="form-control" accept="image/*">
+            <input
+              (change)="onChange($event)"
+              type="file"
+              class="form-control"
+              accept="image/*">
           </div>
         </div>
       </div>

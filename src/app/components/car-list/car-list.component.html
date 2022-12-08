@@ -20,16 +20,18 @@
             <li class="list-group-item">DT <strong>{{c.dayPrice}}</strong> /DAY</li>
           </ul>
           <div class="card-footer">
-            <a href="#" class="link-info">
-              <i class="fa-solid fa-circle-info"></i>
+            <a href="#" class="btn">
+              <i class="fa-solid fa-circle-info link-info"></i>
             </a>
-            <a routerLink="/update/car/{{c.id}}" class="link-primary m-lg-4">
-              <i class="fa-solid fa-pen-to-square"></i>
+            <a routerLink="/update/car/{{c.id}}" class="btn">
+              <i class="fa-solid fa-pen-to-square link-primary"></i>
             </a>
-            <a href="#" (click)="openPopup(c.id)" class="link-danger">
-              <i class="fa-solid fa-trash"></i>
-            </a>
+            <button type="button" (click)="openPopup(c.id)" class="btn">
+              <i class="fa-solid fa-trash link-danger"></i>
+            </button>
+            <a routerLink="/client/add" class="link-dark m-lg-4">Reserve</a>
           </div>
+
           <!-- Modal -->
           <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
             <div class="modal-dialog" role="document">
