@@ -23,7 +23,7 @@ export class CarService {
   }
 
   addNewCar(car: Car){
-      return this.httpClient.post<Car>(this.carApiUrl+'/addcar',car);
+        return this.httpClient.post<Car>(this.carApiUrl,car);
   }
 
   getAllCars():Observable<Car[]>{

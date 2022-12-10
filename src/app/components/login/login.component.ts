@@ -1,34 +1,57 @@
-import {Component, OnInit,Inject} from '@angular/core';
-import { Router } from '@angular/router';
-import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
-import { AuthState, OktaAuth } from '@okta/okta-auth-js';
-import { filter, map, Observable } from 'rxjs';
+import {Component, Inject, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {OKTA_AUTH, OktaAuthStateService} from '@okta/okta-angular';
+import {OktaAuth} from '@okta/okta-auth-js';
+import OktaSignIn from "@okta/okta-signin-widget";
+import myAppConfig from '../../config/my-app-config';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  // @ts-ignore
-  title = 'okta-angular-quickstart';
-  public isAuthenticated$!: Observable<boolean>;
 
-  constructor(private _router: Router, private _oktaStateService: OktaAuthStateService, @Inject(OKTA_AUTH) private _oktaAuth: OktaAuth) { }
+  oktaSignin: any;
 
-  public ngOnInit(): void {
-    this.isAuthenticated$ = this._oktaStateService.authState$.pipe(
-      filter((s: AuthState) => !!s),
-      map((s: AuthState) => s.isAuthenticated ?? false)
+  constructor(private _router: Router,
+              private oktaStateService: OktaAuthStateService,
+              @Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {
+
+    this.oktaSignin = new OktaSignIn({
+      logo: './assets/images/cars/test.png',
+      features: {
+        registration: true
+      },
+      baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
+      clientId: myAppConfig.oidc.clientId,
+      redirectUri: myAppConfig.oidc.redirectUri,
+      authParams: {
+        pkce: true,
+        issuer: myAppConfig.oidc.issuer,
+        scopes: myAppConfig.oidc.scopes
+      }
+    });
+  }
+
+  ngOnInit(): void {
+    this.oktaSignin.remove();
+
+    this.oktaSignin.renderEl({
+        el: '#okta-sign-in-widget'}, // this name should be same as div tag id in login.component.html
+      (response: any) => {
+        if (response.status === 'SUCCESS') {
+          this.oktaAuth.signInWithRedirect();
+        }
+      },
+      (error : any) => {
+        throw error;
+      }
     );
   }
 
-  public async signIn() : Promise<void> {
-    await this._oktaAuth.signInWithRedirect().then(
-      _ => this._router.navigate(['/profile'])
-    );
+  ngOnDestroy(): void {
+    this.oktaSignin.remove();
   }
 
-  public async signOut(): Promise<void> {
-    await this._oktaAuth.signOut();
-  }
 }
