@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {OKTA_AUTH, OktaAuthStateService} from '@okta/okta-angular';
-import {OktaAuth} from '@okta/okta-auth-js';
-import OktaSignIn from "@okta/okta-signin-widget";
-import myAppConfig from '../../config/my-app-config';
+
+import {NgForm} from "@angular/forms";
+import {UserAuthService} from "../../service/user-auth.service";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-login',
@@ -11,47 +11,26 @@ import myAppConfig from '../../config/my-app-config';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  constructor(
+    private userService: UserService,
+    private userAuthService: UserAuthService,
+    private router: Router
+  ) {}
 
-  oktaSignin: any;
+  ngOnInit(): void {}
 
-  constructor(private _router: Router,
-              private oktaStateService: OktaAuthStateService,
-              @Inject(OKTA_AUTH) private oktaAuth: OktaAuth) {
-
-    this.oktaSignin = new OktaSignIn({
-      logo: './assets/images/cars/test.png',
-      features: {
-        registration: true
-      },
-      baseUrl: myAppConfig.oidc.issuer.split('/oauth2')[0],
-      clientId: myAppConfig.oidc.clientId,
-      redirectUri: myAppConfig.oidc.redirectUri,
-      authParams: {
-        pkce: true,
-        issuer: myAppConfig.oidc.issuer,
-        scopes: myAppConfig.oidc.scopes
-      }
-    });
-  }
-
-  ngOnInit(): void {
-    this.oktaSignin.remove();
-
-    this.oktaSignin.renderEl({
-        el: '#okta-sign-in-widget'}, // this name should be same as div tag id in login.component.html
+  login(loginForm: NgForm) {
+    this.userService.login(loginForm.value).subscribe(
       (response: any) => {
-        if (response.status === 'SUCCESS') {
-          this.oktaAuth.signInWithRedirect();
-        }
+        this.userAuthService.setRoles(response.user.role);
+        this.userAuthService.setToken(response.jwtToken);
+
+        this.router.navigate(['/cars']);
+
       },
-      (error : any) => {
-        throw error;
+      (error) => {
+        console.log(error);
       }
     );
   }
-
-  ngOnDestroy(): void {
-    this.oktaSignin.remove();
-  }
-
 }

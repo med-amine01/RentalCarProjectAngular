@@ -27,7 +27,7 @@
               </div>
               List Cars
             </a>
-            <a routerLink="/add/car"  class="nav-link collapsed" >
+            <a routerLink="/add/car"  class="nav-link collapsed" *ngIf="userService.roleMatch(['Admin'])" >
               <div class="sb-nav-link-icon">
                 <i class="fas fa-folder-plus"></i>
               </div>

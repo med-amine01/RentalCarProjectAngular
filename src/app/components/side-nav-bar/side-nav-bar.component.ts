@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-side-nav-bar',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-nav-bar.component.css']
 })
 export class SideNavBarComponent {
-
+  constructor(public userService:UserService) {
+  }
 }

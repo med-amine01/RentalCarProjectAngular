@@ -3,6 +3,8 @@ import {AuthState, OktaAuth} from "@okta/okta-auth-js";
 import {OKTA_AUTH, OktaAuthStateService} from "@okta/okta-angular";
 import {filter, map, Observable} from "rxjs";
 import {Router} from "@angular/router";
+import {UserAuthService} from "../../service/user-auth.service";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-login-status',
@@ -10,42 +12,22 @@ import {Router} from "@angular/router";
   styleUrls: ['./login-status.component.css']
 })
 export class LoginStatusComponent implements OnInit {
-  public isAuthenticated$!: Observable<boolean>;
-  private userFullName: any;
+  constructor(
+    public userAuthService: UserAuthService,
+    private router: Router,
+    public userService: UserService,
+  ) {}
 
-  isHeAuth : boolean | undefined = false;
+  ngOnInit(): void {}
 
-  constructor(private _router: Router, private _oktaStateService: OktaAuthStateService, @Inject(OKTA_AUTH) private _oktaAuth: OktaAuth) { }
+  public isLoggedIn() {
+    return this.userAuthService.isLoggedIn();
 
-  public async ngOnInit() {
-    this.isAuthenticated$ = this._oktaStateService.authState$.pipe(
-      filter((s: AuthState) => !!s),
-      map((s: AuthState) => s.isAuthenticated ?? false)
-    );
-
-    // Subscribe to authentication state changes
-    this._oktaStateService.authState$.subscribe(
-      (result) => {
-        this.isHeAuth = result.isAuthenticated;
-        console.log(result)
-      }
-    );
-
-    this._oktaAuth.getUser().then(
-      (res) => {
-        console.log(res);
-        this.userFullName = res.name;
-      }
-    );
   }
 
-  public async signIn() : Promise<void> {
-    await this._oktaAuth.signInWithRedirect().then(
-      _ => this._router.navigate(['cars'])
-    );
+  public logout() {
+    this.userAuthService.clear();
+    this.router.navigate(['/login']);
   }
 
-  public async signOut(): Promise<void> {
-    await this._oktaAuth.signOut();
-  }
 }
