@@ -9,13 +9,17 @@ import {Router} from "@angular/router";
 })
 export class CarSearchComponent implements OnInit{
 
+
+
+
   constructor(private carService:CarService,
-              private route: Router) {
+              private route: Router,
+              ) {
   }
 
-  ngOnInit(): void {
-  }
+  public ngOnInit() {
 
+  }
   searchByBrand(theBrand:string){
     this.route.navigateByUrl("search/"+theBrand);
   }

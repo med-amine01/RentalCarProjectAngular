@@ -18,6 +18,8 @@ import {UserService} from "./service/user.service";
 import {AuthInterceptor} from "./auth/auth.interceptor";
 import {AuthGuard} from "./auth/auth.guard";
 import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
+import {HomeComponent} from "./components/home/home.component";
+import {LocationAddComponent} from "./components/location-add/location-add.component";
 
 
 // const oktaAuth = new OktaAuth(myAppConfig.oidc);
@@ -31,6 +33,8 @@ const routes: Routes = [
 
   {path:'login',component:LoginComponent},
   {path:'forbidden',component:ForbiddenComponent},
+  {path:'add',component:ForbiddenComponent},
+  {path:'location/add/:id',component:LocationAddComponent},
   {path: 'cardetails/car/:id', component: CarDetailsComponent,canActivate:[AuthGuard], data:{roles:['Admin','User']}},
   {path: 'update/car/:id', component: CarAddComponent,canActivate:[AuthGuard], data:{roles:['Admin']}},
   {path: 'add/car', component: CarAddComponent,canActivate:[AuthGuard], data:{roles:['Admin']} },
@@ -57,6 +61,8 @@ const routes: Routes = [
     LoginComponent,
     LoginStatusComponent,
     ForbiddenComponent,
+    HomeComponent,
+    LocationAddComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {Observable} from "rxjs";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'rentCarProject';
+  public isAuthenticated$!: Observable<boolean>;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+  }
+
+
+  public async ngOnInit() {
+
+    this.document.body.classList.add('sb-sidenav-toggled');
+
+  }
 }

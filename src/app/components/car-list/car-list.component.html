@@ -1,3 +1,4 @@
+<app-home></app-home>
 <div class="container mt-lg-5">
   <div *ngIf="cars?.length==0" class="alert alert-warning" role="alert">
     No Cars found.
@@ -20,16 +21,16 @@
             <li class="list-group-item">DT <strong>{{c.dayPrice}}</strong> /DAY</li>
           </ul>
           <div class="card-footer">
-            <a href="#" class="btn">
-              <i class="fa-solid fa-circle-info link-info"></i>
-            </a>
-            <a routerLink="/update/car/{{c.id}}" class="btn">
-              <i class="fa-solid fa-pen-to-square link-primary"></i>
-            </a>
-            <button type="button" (click)="openPopup(c.id)" class="btn">
-              <i class="fa-solid fa-trash link-danger"></i>
-            </button>
-            <a routerLink="/client/add" class="link-dark m-lg-4">Reserve</a>
+              <a href="#" class="btn">
+                <i class="fa-solid fa-circle-info link-info"></i>
+              </a>
+              <a routerLink="/update/car/{{c.id}}" class="btn">
+                <i class="fa-solid fa-pen-to-square link-primary"></i>
+              </a>
+              <button type="button" (click)="openPopup(c.id)" class="btn">
+                <i class="fa-solid fa-trash link-danger"></i>
+              </button>
+            <a routerLink="/location/add/{{c.id}}" class="btn btn-primary link-light">Rent Now</a>
           </div>
 
           <!-- Modal -->

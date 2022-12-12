@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Car} from "../../common/car";
 import {CarService} from "../../service/car.service";
 import {ActivatedRoute} from "@angular/router";
+import {filter, map, Observable} from "rxjs";
+
 
 @Component({
   selector: 'app-car-list',
@@ -16,10 +18,12 @@ export class CarListComponent implements OnInit {
   displayStyle = "none";
   carIdToDelete : number = 0;
 
+
   constructor(private carService:CarService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,) {
   }
   ngOnInit(): void {
+
     this.route.paramMap.subscribe(
       ()=>{
         this.listCars();
