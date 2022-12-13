@@ -119,11 +119,8 @@
       <div class="">
         <div class="form-floating">
           <div class="input-group input-group-lg">
-            <input
-              (change)="onChange($event)"
-              type="file"
-              class="form-control"
-              accept="image/*">
+            <input type="file" accept="image/*" (change)="onSelectFile($event)">
+            <img [src]="imgURL" height="200" *ngIf="imgURL">
           </div>
         </div>
       </div>

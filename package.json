@@ -23,9 +23,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
-    "@okta/okta-angular": "6.0",
-    "@okta/okta-auth-js": "7.0",
-    "@okta/okta-signin-widget": "^7.1.1",
+
     "bootstrap": "^5.2.3",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.1",

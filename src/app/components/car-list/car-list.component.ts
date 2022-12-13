@@ -17,6 +17,9 @@ export class CarListComponent implements OnInit {
   searchModeBrand!: boolean;
   displayStyle = "none";
   carIdToDelete : number = 0;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
 
 
   constructor(private carService:CarService,
@@ -97,5 +100,12 @@ export class CarListComponent implements OnInit {
         console.log(data);
       }
     );
+  }
+
+
+  retrivedImage(imageUrl: string) {
+
+    return(imageUrl.split("/src/")[1])
+
   }
 }
