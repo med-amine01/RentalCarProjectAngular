@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ClientService} from "../../service/client.service";
 import {ActivatedRoute} from "@angular/router";
 import {Client} from "../../common/client";
 import {LocationService} from "../../service/location.service";
-import {CarService} from "../../service/car.service";
 import {Car} from "../../common/car";
+import {CarService} from "../../service/car.service";
 
 @Component({
   selector: 'app-location-add',
@@ -27,8 +26,8 @@ export class LocationAddComponent {
   }
 
   ngOnInit(): void {
-    this.formGroupInit();
     this.getCarInformations();
+    this.formGroupInit();
     // this.calulatePrice();
 
   }

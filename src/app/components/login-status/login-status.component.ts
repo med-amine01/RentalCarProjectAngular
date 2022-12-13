@@ -18,8 +18,7 @@ export class LoginStatusComponent implements OnInit {
   ngOnInit(): void {}
 
   public isLoggedIn() {
-    return this.userAuthService.isLoggedIn();
-
+     return this.userAuthService.isLoggedIn();
   }
 
   public logout() {

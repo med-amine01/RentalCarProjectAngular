@@ -9,7 +9,6 @@ import {DOCUMENT} from "@angular/common";
 })
 export class AppComponent {
   title = 'rentCarProject';
-  public isAuthenticated$!: Observable<boolean>;
 
   constructor(@Inject(DOCUMENT) private document: Document) {
   }

@@ -1,18 +1,19 @@
-<!--<ng-container *ngIf="(isAuthenticated$ | async) === false; else signout">-->
-<!--  <button (click)="signIn()"> Sign in </button>-->
-<!--</ng-container>-->
 
-<!--<ng-template #signout>-->
-<!--  <button (click)="signOut()">Sign out</button>-->
-<!--</ng-template>-->
+<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+  <li class="nav-item dropdown">
+    <div class="dropdown show">
+      <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-user fa-fw"></i>
+        Your Account
+      </a>
 
-
-
-<div class="login-status-header">
-
-
-
-  <button *ngIf="!isLoggedIn()" routerLink="/login" class="security-btn">Login</button>
-  <button *ngIf="isLoggedIn" (click)="logout()" class="security-btn">Logout</button>
-
-</div>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="#!">Settings</a></li>
+        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+        <li><hr class="dropdown-divider" /></li>
+        <li><a *ngIf="!isLoggedIn" routerLink="/login" class="dropdown-item" >Login</a></li>
+        <li><a *ngIf="isLoggedIn" (click)="logout()" class="dropdown-item" href="#!">Logout</a></li>
+      </ul>
+    </div>
+  </li>
+</ul>
