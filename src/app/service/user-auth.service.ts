@@ -24,12 +24,19 @@ export class UserAuthService {
     // @ts-ignore
     return localStorage.getItem('jwtToken');
   }
+  public setId(id: string) {
+    localStorage.setItem('id', id);
+  }
 
+  public getId(): string {
+    // @ts-ignore
+    return localStorage.getItem('id');
+  }
   public clear() {
     localStorage.clear();
   }
 
   public isLoggedIn() {
-    return this.getRoles() && this.getToken();
+    return this.getRoles() && this.getToken()&& this.getId();
   }
 }

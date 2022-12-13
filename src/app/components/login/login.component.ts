@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit{
   login(loginForm: NgForm) {
     this.userService.login(loginForm.value).subscribe(
       (response: any) => {
+        this.userAuthService.setId(response.user.username);
         this.userAuthService.setRoles(response.user.role);
         this.userAuthService.setToken(response.jwtToken);
 

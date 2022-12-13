@@ -9,17 +9,24 @@ import {UserService} from "../../service/user.service";
   styleUrls: ['./login-status.component.css']
 })
 export class LoginStatusComponent implements OnInit {
+public id:String="";
   constructor(
     public userAuthService: UserAuthService,
     private router: Router,
     public userService: UserService,
-  ) {}
+
+  ) {
+  }
+  getuserId(){
+    return this.id=this.userAuthService.getId();
+  }
 
   ngOnInit(): void {}
 
   public isLoggedIn() {
      return this.userAuthService.isLoggedIn();
   }
+
 
   public logout() {
     this.userAuthService.clear();

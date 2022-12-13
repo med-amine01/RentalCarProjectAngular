@@ -8,7 +8,7 @@
 
         <div class="card" style="width: 18rem;">
           <a routerLink="/cars/{{c.id}}">
-            <img class="card-img-top" src="/assets/images/cars/test.png" alt="Card image cap">
+            <img class="card-img-top"  [src]=retrivedImage(c.imageUrl) alt="Card image cap" >
           </a>
 
           <div class="card-body">

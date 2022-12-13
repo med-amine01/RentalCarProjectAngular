@@ -23,7 +23,11 @@ export class CarAddComponent implements OnInit{
   file!: any ;
 
   //inject form services
-
+  userFile:any ;
+  public imagePath:any;
+  imgURL: any;
+  // @ts-ignore
+  public message: string;
   constructor(private formBuilder: FormBuilder,
               private carService : CarService,
               private route: ActivatedRoute,
@@ -91,8 +95,8 @@ export class CarAddComponent implements OnInit{
     let car = new Car();
 
     //upload image on server
-    // let formData = new FormData();
-    // formData.set("img",this.file)
+     let formData = new FormData();
+     formData.append('file',this.userFile)
     // this.http.post('http://localhost:4200/src/assets/images/cars',formData).subscribe(
     //   (response)=>{
     //     alert(response);
@@ -105,19 +109,10 @@ export class CarAddComponent implements OnInit{
     car.serie = this.serie?.value;
     car.fuelType = this.fuelType?.value;
     car.gearType = this.gearType?.value;
-    car.imageUrl = "assets/images/cars/"+this.file!.name;
     car.dayPrice = this.dayPrice?.value;
+    this.carService.addNewCar(car,formData);
+    this.carAddBool = true;
 
-    this.carService.addNewCar(car).subscribe({
-      next: response =>{
-        //our response from the api has car id => return as JSON (car.id)
-        // alert("the car has been added the id is  : "+response.id);
-        this.carAddBool = true;
-
-      }, error: err => {
-        alert("There was an error: "+err.message());
-      }
-    });
   }
 
   updateCar(){
@@ -149,5 +144,29 @@ export class CarAddComponent implements OnInit{
   }
 
 
+  onSelectFile(event:any) {
+    if (event.target.files.length > 0)
+    {
+      const file = event.target.files[0];
+      this.userFile = file;
+      // this.f['profile'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = "Only images are supported.";
+        return;
+      }
+
+      var reader = new FileReader();
+
+      this.imagePath = file;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+      }
+    }
+
+
+  }
 
 }
