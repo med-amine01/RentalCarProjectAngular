@@ -11,8 +11,8 @@
         <li><a class="dropdown-item" href="#!">Settings</a></li>
         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
         <li><hr class="dropdown-divider" /></li>
-        <li><a *ngIf="!isLoggedIn" routerLink="/login" class="dropdown-item" >Login</a></li>
-        <li><a *ngIf="isLoggedIn" (click)="logout()" class="dropdown-item" href="#!">Logout</a></li>
+        <li><a *ngIf="!isauthenticated" routerLink="/login" class="dropdown-item" >Login</a></li>
+        <li><a *ngIf="isauthenticated" (click)="logout()" class="dropdown-item" href="#!">Logout</a></li>
       </ul>
     </div>
   </li>

@@ -21,6 +21,7 @@ import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
 import {HomeComponent} from "./components/home/home.component";
 import {LocationAddComponent} from "./components/location-add/location-add.component";
 import { LocationListComponent } from './components/location-list/location-list.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 // const oktaAuth = new OktaAuth(myAppConfig.oidc);
@@ -31,7 +32,7 @@ import { LocationListComponent } from './components/location-list/location-list.
 //when you define your routes you GO from most SPECIFIC to the most GENERIC
 //in imports we will call the array of routes : RouterModule.forRoot(routes)
 const routes: Routes = [
-
+  {path:'register',component:RegisterComponent},
   {path:'login',component:LoginComponent},
   {path:'forbidden',component:ForbiddenComponent},
   {path:'add',component:ForbiddenComponent},
@@ -65,7 +66,8 @@ const routes: Routes = [
     ForbiddenComponent,
     HomeComponent,
     LocationAddComponent,
-    LocationListComponent
+    LocationListComponent,
+    RegisterComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
