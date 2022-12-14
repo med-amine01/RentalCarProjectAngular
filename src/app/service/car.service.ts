@@ -22,14 +22,12 @@ export class CarService {
     return this.httpClient.patch<Car>(this.carApiUrl+'/updatecar',car);
   }
 
-     addNewCar(car: Car,formdata:FormData){
+   addNewCar(car: Car,formdata:FormData){
 
-      let id =  this.httpClient.post<any>(this.carApiUrl+'/addcar', car).toPromise()
-        .then(id => this.httpClient.post<Car>(this.carApiUrl+'/addcar/img/'+id, formdata).toPromise())
-        .then(car => car)
-        .catch(error => alert("There was an error: "+error.message()));
-
-
+    let id =  this.httpClient.post<any>(this.carApiUrl+'/addcar', car).toPromise()
+      .then(id => this.httpClient.post<Car>(this.carApiUrl+'/addcar/img/'+id, formdata).toPromise())
+      .then(car => car)
+      .catch(error => alert("There was an error: "+error.message()));
   }
 
   getAllCars():Observable<Car[]>{

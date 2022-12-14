@@ -97,7 +97,6 @@ export class CarListComponent implements OnInit {
     this.carService.getCarByBrand(brandSearch).subscribe(
       data=>{
         this.cars = data;
-        console.log(data);
       }
     );
   }
@@ -108,4 +107,5 @@ export class CarListComponent implements OnInit {
     return(imageUrl.split("/src/")[1])
 
   }
+
 }

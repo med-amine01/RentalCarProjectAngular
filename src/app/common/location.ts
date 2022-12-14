@@ -1,14 +1,11 @@
-import {Client} from "./client";
 import {Car} from "./car";
+import {User} from "./user";
 
 export class Location {
   id!:number;
   startDate!:Date;
   endDate!:Date;
   price!:number;
-
-
-  //TODO : change this
-  client!:Client;
+  user!: User;
   car !: Car;
 }

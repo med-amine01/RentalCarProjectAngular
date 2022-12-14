@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {Client} from "../../common/client";
 import {LocationService} from "../../service/location.service";
 import {Car} from "../../common/car";
 import {CarService} from "../../service/car.service";
+import {Location} from "../../common/location";
+import {User} from "../../common/user";
 
 @Component({
   selector: 'app-location-add',
@@ -13,7 +14,7 @@ import {CarService} from "../../service/car.service";
 })
 export class LocationAddComponent {
   locationFormGroup!: FormGroup;
-  client !: Client;
+  user !: User;
   locationAddBool: boolean = false;
 
   idcar!: number;
@@ -26,6 +27,7 @@ export class LocationAddComponent {
   }
 
   ngOnInit(): void {
+
     this.getCarInformations();
     this.formGroupInit();
     // this.calulatePrice();
@@ -88,29 +90,29 @@ export class LocationAddComponent {
     //   this.locationFormGroup.markAllAsTouched();
     //   return;
     // }
-    //
-    // let client = new Client();
-    // client.cin = this.cin?.value;
-    // client.firstName = this.firstName?.value;
-    // client.lastName = this.lastName?.value;
-    // client.email = this.email?.value;
-    // client.phoneNumber = this.phoneNumber?.value;
-    //
-    // //TODO : redirect to location : number of days to locate
-    //
-    //
-    //
-    // //{[azer,aezr,azer]}
-    // this.clientService.addNewClient(client).subscribe({
-    //   next: response =>{
-    //     //our response from the api has car id => return as JSON (car.id)
-    //     // alert("the car has been added the id is  : "+response.id);
-    //     this.clienAddBool = true;
-    //
-    //   }, error: err => {
-    //     alert("There was an error: "+err.message());
-    //   }
-    // });
+
+
+    let user = new User();
+    user.username = JSON.parse(JSON.stringify(localStorage.getItem("id")));
+
+
+    let location  = new Location();
+
+    location.startDate = this.startDate?.value;
+    location.endDate = this.endDate?.value;
+    location.user = user;
+    location.car = this.car;
+
+    console.log(location)
+
+
+    this.locationService.addNewLocation(location).subscribe({
+      next:response=>{
+        alert("location added "+response.price);
+      }, error: err => {
+            alert("There was an error: "+err.message());
+          }
+    });
   }
 
 }

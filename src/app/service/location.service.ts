@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {Car} from "../common/car";
+import {Location} from "../common/location";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,16 @@ export class LocationService {
   private locationApiUrl = 'http://localhost:8080/api/locations';
   constructor(private httpClient: HttpClient) { }
 
-  addNewLocation(location : Location){
-    return this.httpClient.post<Location>(this.locationApiUrl,location);
+  addNewLocation(location : Location) : Observable<any>{
+
+    // const _options = {
+    //   headers: new HttpHeaders({
+    //       'Content-Type': 'application/json',
+    //       'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
+    //     }
+    //   )};
+    // return this.httpClient.post(this.locationApiUrl, location, _options);
+    return this.httpClient.post<Location>("http://localhost:8080/api/location/addLocation",location);
   }
 
   getAllLocations():Observable<Location[]>{
