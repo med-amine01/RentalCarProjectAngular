@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserAuthService} from "./user-auth.service";
+import {Car} from "../common/car";
+import {User} from "../common/User";
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +51,14 @@ export class UserService {
       }
       return isMatch;
     }
+  }
+  addNewUser(user: User){
+
+
+      return this.httpclient.post<User>(this.PATH_OF_API+"/registerNewUser",user,{
+        headers: this.requestHeader,
+      });
+
+
   }
 }

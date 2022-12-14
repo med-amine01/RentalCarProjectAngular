@@ -11,6 +11,8 @@ import {UserService} from "../../service/user.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  static isauthenticated:boolean=false;
+
   constructor(
     private userService: UserService,
     private userAuthService: UserAuthService,
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit{
         this.userAuthService.setId(response.user.username);
         this.userAuthService.setRoles(response.user.role);
         this.userAuthService.setToken(response.jwtToken);
-
+        LoginComponent.isauthenticated=true;
         this.router.navigate(['/cars']);
 
       },
@@ -34,4 +36,9 @@ export class LoginComponent implements OnInit{
       }
     );
   }
+  static  getIsauth(){
+    return this.isauthenticated;
+  }
+
+
 }
