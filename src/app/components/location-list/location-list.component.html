@@ -10,24 +10,22 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
+
+      <tr *ngFor="let loc of location">
+        <th scope="row">{{loc.id}}</th>
+        <td>{{loc.user.username.valueOf()}}</td>
+        <td>{{loc.car.brand}} {{loc.car.model}}</td>
+        <td>{{loc.startDate}} - {{loc.endDate}}</td>
+        <td>
+          <div *ngIf="loc.status == 'In progress'">
+            <a href="">approve</a>
+            <a href="">reject</a>
+          </div>
+          <div *ngIf="loc.status != 'In progress'">
+            {{loc.status}}
+          </div>
+        </td>
+      </tr>
     </tbody>
   </table>
 </div>

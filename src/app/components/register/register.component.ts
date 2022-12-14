@@ -1,13 +1,12 @@
-import { Component } from '@angular/core';
-import {Car} from "../../common/car";
-import {User} from "../../common/User";
+import {Component} from '@angular/core';
+
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {CarService} from "../../service/car.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../service/user.service";
-import {LoginStatusComponent} from "../login-status/login-status.component";
 import {UserAuthService} from "../../service/user-auth.service";
+import {User} from "../../common/User";
+
 
 @Component({
   selector: 'app-register',
@@ -38,16 +37,25 @@ export class RegisterComponent {
 
   }
   onSubmit(){
+
     if(this.userFormGroup.invalid){
       this.userFormGroup.markAllAsTouched();
+      alert("aaaaa")
       return;
     }
 
-   this.insertCar();
+    if(this.userPassword?.value != this.userConfirmPassword?.value){
+      alert("not matched password")
+      return;
+    }
 
-
+    this.insertUser();
 
     this.userFormGroup.reset();
+
+  }
+
+  matchedPassword(pass1 : string, pass2:string){
 
   }
 
@@ -67,22 +75,19 @@ export class RegisterComponent {
           Validators.minLength(2)]),
         username : new FormControl('',[
           Validators.required,
-          Validators.minLength(2)]),
+          Validators.minLength(2),
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
         userPassword : new FormControl('',[
           Validators.required,
           Validators.minLength(2)]),
         userConfirmPassword : new FormControl('',[
           Validators.required,
-          Validators.minLength(2)]),
-
-
+          Validators.minLength(2)])
       })
     });
   }
-  insertCar(){
+  insertUser(){
     let user = new User();
-
-
 
 
     user.username = this.username?.value;
@@ -90,15 +95,14 @@ export class RegisterComponent {
     user.userLastName = this.userLastName?.value;
     user.userPassword = this.userPassword?.value;
     this.userService.addNewUser(user);
+
+
+
     this.userService.addNewUser(user).subscribe( data=>{
        this.userAddBool = true;
-
-
      },error => {
        alert("There was an error: "+error.message());
      });
-
-
   }
 
 }

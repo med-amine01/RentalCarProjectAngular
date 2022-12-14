@@ -5,7 +5,10 @@ import {LocationService} from "../../service/location.service";
 import {Car} from "../../common/car";
 import {CarService} from "../../service/car.service";
 import {Location} from "../../common/location";
-import {User} from "../../common/user";
+import {User} from "../../common/User";
+
+
+
 
 @Component({
   selector: 'app-location-add',
@@ -15,7 +18,8 @@ import {User} from "../../common/user";
 export class LocationAddComponent {
   locationFormGroup!: FormGroup;
   user !: User;
-  locationAddBool: boolean = false;
+  locationSucc: boolean = false;
+  locationErr: boolean = false;
 
   idcar!: number;
   car!: Car;
@@ -48,10 +52,10 @@ export class LocationAddComponent {
   getDiffrenceDays(): number {
     let d1 = new Date(this.startDate?.value);
     let d2 = new Date(this.endDate?.value);
-    console.log(d1 + " " + d2)
+
 
     let days = Math.floor((d2.getTime() - d1.getTime()) / 1000 / 60 / 60 / 24);
-    return days;
+    return days+1;
   }
 
   calulatePrice() {
@@ -86,10 +90,10 @@ export class LocationAddComponent {
   onSubmit() {
 
 
-    // if(this.locationFormGroup.invalid){
-    //   this.locationFormGroup.markAllAsTouched();
-    //   return;
-    // }
+    if(this.locationFormGroup.invalid){
+      this.locationFormGroup.markAllAsTouched();
+      return;
+    }
 
 
     let user = new User();
@@ -103,12 +107,15 @@ export class LocationAddComponent {
     location.user = user;
     location.car = this.car;
 
-    console.log(location)
-
+    if(location.startDate > location.endDate){
+      this.locationErr = true;
+      return;
+    }
 
     this.locationService.addNewLocation(location).subscribe({
       next:response=>{
-        alert("location added "+response.price);
+        this.locationSucc = true;
+        // alert("location added "+response.price);
       }, error: err => {
             alert("There was an error: "+err.message());
           }

@@ -11,6 +11,10 @@ export class LocationService {
   private locationApiUrl = 'http://localhost:8080/api/locations';
   constructor(private httpClient: HttpClient) { }
 
+
+  updateStatus(location: Location): Observable<any>{
+    return this.httpClient.patch<Location>("http://localhost:8080/api/location/updatestatus",location);
+  }
   addNewLocation(location : Location) : Observable<any>{
 
     // const _options = {
@@ -24,7 +28,7 @@ export class LocationService {
   }
 
   getAllLocations():Observable<Location[]>{
-    return this.getLocation(this.locationApiUrl);
+    return this.httpClient.get<any>("http://localhost:8080/api/location/allLocations");
   }
 
   getLocation(searchUrl:string){

@@ -23,7 +23,7 @@ export class CarListComponent implements OnInit {
 
 
   constructor(private carService:CarService,
-              private route: ActivatedRoute,) {
+              private route: ActivatedRoute) {
   }
   ngOnInit(): void {
 

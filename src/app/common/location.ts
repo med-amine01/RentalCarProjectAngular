@@ -1,5 +1,6 @@
 import {Car} from "./car";
-import {User} from "./user";
+import { User } from "./User";
+
 
 export class Location {
   id!:number;
@@ -8,4 +9,5 @@ export class Location {
   price!:number;
   user!: User;
   car !: Car;
+  status!: string;
 }
