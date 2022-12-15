@@ -4,6 +4,7 @@ import {CarService} from "../../service/car.service";
 import {ActivatedRoute} from "@angular/router";
 import {filter, map, Observable} from "rxjs";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../service/user.service";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class CarListComponent implements OnInit {
 
   constructor(private carService:CarService,
               private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public userService:UserService) {
   }
   ngOnInit(): void {
 
