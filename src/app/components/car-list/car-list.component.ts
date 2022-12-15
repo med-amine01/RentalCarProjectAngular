@@ -144,8 +144,9 @@ export class CarListComponent implements OnInit {
 
 
   retrivedImage(imageUrl: string) {
-
-    return(imageUrl.split("/src/")[1])
+    if(imageUrl.indexOf("/src/")!=-1){    return(imageUrl.split("/src/")[1])
+    }
+    return imageUrl;
 
   }
 
