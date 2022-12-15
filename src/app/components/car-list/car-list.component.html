@@ -1,7 +1,64 @@
-<app-home></app-home>
+
+<div class="hero" style="background-image: url('/assets/images/cars/hero_1_a.jpg');">
+
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-10">
+
+        <div class="row mb-5">
+          <div class="col-lg-7 intro">
+            <h1><strong>Rent a car</strong> is within your finger tips.</h1>
+          </div>
+        </div>
+
+        <form [formGroup]="searchFormGroup" class="trip-form" (ngSubmit)="onSubmit()">
+
+          <div formGroupName="searchInfo" class="row align-items-center">
+
+            <div class="mb-3 mb-md-0 col-md-3">
+              <select name="" id="" class="custom-select form-control">
+                <option value="">Select Type</option>
+                <option value="">Ferrari</option>
+                <option value="">Toyota</option>
+                <option value="">Ford</option>
+                <option value="">Lamborghini</option>
+              </select>
+            </div>
+            <div class="mb-3 mb-md-0 col-md-3">
+
+                <input formControlName="startDate"
+                       class="form-control"
+                       type="date"/>
+              <div *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)">
+                <small *ngIf="startDate?.errors?.['required']" class="text-danger">
+                  Start Date is required.
+                </small>
+              </div>
+            </div>
+            <div class="mb-3 mb-md-0 col-md-3">
+              <input formControlName="endDate"
+                     class="form-control"
+                     type="date"/>
+              <div *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)">
+                <small *ngIf="endDate?.errors?.['required']" class="text-danger">
+                  Start Date is required.
+                </small>
+              </div>
+            </div>
+            <div class="mb-3 mb-md-0 col-md-3">
+              <input type="submit" value="Search Now" class="btn btn-primary btn-block py-3">
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container mt-lg-5">
-  <div *ngIf="cars?.length==0" class="alert alert-warning" role="alert">
-    No Cars found.
+  <div *ngIf="cars?.length==0">
+<!--    No Cars found.-->
   </div>
   <div class="row gy-5">
     <div *ngFor="let c of cars" class="col-sm">

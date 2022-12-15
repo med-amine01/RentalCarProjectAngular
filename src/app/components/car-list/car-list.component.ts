@@ -3,7 +3,7 @@ import {Car} from "../../common/car";
 import {CarService} from "../../service/car.service";
 import {ActivatedRoute} from "@angular/router";
 import {filter, map, Observable} from "rxjs";
-import {UserService} from "../../service/user.service";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
@@ -21,18 +21,48 @@ export class CarListComponent implements OnInit {
   retrievedImage: any;
   base64Data: any;
   retrieveResonse: any;
+  searchFormGroup!: FormGroup;
+   dateErr: boolean = false;
 
 
   constructor(private carService:CarService,
-              private route: ActivatedRoute,public userService:UserService) {
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder) {
   }
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(
-      ()=>{
-        this.listCars();
+    this.formGroupInit();
+    // this.route.paramMap.subscribe(
+    //   ()=>{
+    //     this.listCars();
+    //   }
+    // );
+  }
+
+  onSubmit() {
+
+    if(this.startDate?.value>this.endDate?.value){
+      alert("enter a valid date please ..")
+      return;
+    }
+    this.carService.getAllCars(this.startDate?.value, this.endDate?.value).subscribe(
+      data =>{
+        this.cars = data;
       }
     );
+  }
+
+  get startDate(){return this.searchFormGroup.get('searchInfo.startDate')}
+  get endDate(){return this.searchFormGroup.get('searchInfo.endDate')}
+  formGroupInit(){
+    this.searchFormGroup = this.formBuilder.group({
+      searchInfo : this.formBuilder.group({
+        startDate : new FormControl('', [
+          Validators.required]),
+        endDate : new FormControl('',[
+          Validators.required])
+      })
+    });
   }
 
 
@@ -52,6 +82,7 @@ export class CarListComponent implements OnInit {
       }
     );
   }
+
 
   listCars(){
     //we set up the router in app.module with :keyword
@@ -75,11 +106,7 @@ export class CarListComponent implements OnInit {
   getAllCars(){
     //it will return json file in that data and we will asign that to our prouducts
     //data is the return value of json file
-    this.carService.getAllCars().subscribe(
-      data =>{
-        this.cars = data;
-      }
-    );
+
   }
 
   getCarById(){
@@ -101,6 +128,8 @@ export class CarListComponent implements OnInit {
       }
     );
   }
+
+
 
 
   retrivedImage(imageUrl: string) {

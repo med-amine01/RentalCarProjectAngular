@@ -30,8 +30,9 @@ export class CarService {
       .catch(error => alert("There was an error: "+error.message()));
   }
 
-  getAllCars():Observable<Car[]>{
-    return this.getCars(this.carApiUrl);
+  getAllCars(d1 : string  , d2 : string):Observable<Car[]>{
+    const  availUrl= 'http://localhost:8080/api/cars/allcars?startDate='+d1+'&endDate='+d2;
+    return this.httpClient.get<Car[]>(availUrl);
   }
 
   getOneCar(carId:number):Observable<Car>{
@@ -45,6 +46,9 @@ export class CarService {
     const carBrandUrl = this.carApiUrl+'/search/findByBrandContaining?brand='+carBrand;
     return this.getCars(carBrandUrl);
   }
+
+
+
 
   //return an observable : map the JSON data from spring data rest to product array
   private getCars(searchUrl:string){
