@@ -34,11 +34,11 @@ export class CarListComponent implements OnInit {
   ngOnInit(): void {
 
     this.formGroupInit();
-    // this.route.paramMap.subscribe(
-    //   ()=>{
-    //     this.listCars();
-    //   }
-    // );
+    this.route.paramMap.subscribe(
+      ()=>{
+        this.listCars();
+      }
+    );
   }
 
   onSubmit() {
@@ -99,8 +99,17 @@ export class CarListComponent implements OnInit {
     else if(this.searchModeBrand) {
       this.getCarByBrand();
     }
-    else{
+    else if(this.startDate?.value !='' && this.endDate?.value !=''){
+
       this.getAllCars();
+    }
+    else
+    {
+      this.carService.getCars("http://localhost:8080/api/cars/").subscribe(
+        data=>{
+          this.cars = data;
+        }
+      )
     }
 
   }

@@ -50,8 +50,9 @@ export class CarService {
 
 
 
+
   //return an observable : map the JSON data from spring data rest to product array
-  private getCars(searchUrl:string){
+   getCars(searchUrl:string){
     return this.httpClient.get<GetCarResponse>(searchUrl).pipe(
       map(response => response._embedded.cars)
     );
