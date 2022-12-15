@@ -1,7 +1,6 @@
 import {Car} from "./car";
 import { User } from "./User";
 
-
 export class Location {
   id!:number;
   startDate!:Date;

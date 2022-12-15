@@ -30,7 +30,9 @@ export class LocationService {
   getAllLocations():Observable<Location[]>{
     return this.httpClient.get<any>("http://localhost:8080/api/location/allLocations");
   }
-
+  getlocationsByClient(id:string):Observable<Location[]>{
+    return this.httpClient.get<any>("http://localhost:8080/api/location/UserLocations/"+id);
+  }
   getLocation(searchUrl:string){
     return this.httpClient.get<GetLocations>(searchUrl).pipe(
       map(response => response._embedded.locations)
