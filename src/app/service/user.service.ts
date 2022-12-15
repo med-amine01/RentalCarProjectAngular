@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserAuthService} from "./user-auth.service";
 import {User} from "../common/User";
+import {Observable} from "rxjs";
+import {Location} from "../common/location";
 
 
 
@@ -57,5 +59,11 @@ export class UserService {
       return this.httpclient.post<User>(this.PATH_OF_API+"/registerNewUser",user,{
         headers: this.requestHeader,
       });
+  }
+  getAllusers():Observable<User[]>{
+    return this.httpclient.get<any>(this.PATH_OF_API+"/allUsers");
+  }
+  deleteUser(id:string){
+    return this.httpclient.delete<any>(this.PATH_OF_API+"/deleteUser/"+id);
   }
 }

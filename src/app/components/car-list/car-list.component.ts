@@ -3,6 +3,7 @@ import {Car} from "../../common/car";
 import {CarService} from "../../service/car.service";
 import {ActivatedRoute} from "@angular/router";
 import {filter, map, Observable} from "rxjs";
+import {UserService} from "../../service/user.service";
 
 
 @Component({
@@ -23,7 +24,7 @@ export class CarListComponent implements OnInit {
 
 
   constructor(private carService:CarService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,public userService:UserService) {
   }
   ngOnInit(): void {
 

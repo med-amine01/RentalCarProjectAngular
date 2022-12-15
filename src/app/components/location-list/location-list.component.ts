@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from "../../service/location.service";
 import {Location} from "../../common/location";
+import {UserService} from "../../service/user.service";
 
 @Component({
   selector: 'app-location-list',
@@ -12,7 +13,7 @@ export class LocationListComponent implements OnInit{
   location : Location[] = [];
    locStatBool: boolean = false;
    locStatReject: boolean = false;
-  constructor(private locationService: LocationService) {
+  constructor(private locationService: LocationService,private userService:UserService) {
   }
   ngOnInit(): void {
     this.getLocations()

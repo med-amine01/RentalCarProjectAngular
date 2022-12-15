@@ -93,9 +93,6 @@ export class RegisterComponent {
     user.userFirstName = this.userFirstName?.value;
     user.userLastName = this.userLastName?.value;
     user.userPassword = this.userPassword?.value;
-    this.userService.addNewUser(user);
-
-
 
     this.userService.addNewUser(user).subscribe( data=>{
        this.userAddBool = true;

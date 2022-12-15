@@ -7,6 +7,9 @@ import {UserService} from "../../service/user.service";
   styleUrls: ['./side-nav-bar.component.css']
 })
 export class SideNavBarComponent {
+  public usernames:string="";
   constructor(public userService:UserService) {
+    // @ts-ignore
+    this.usernames=localStorage.getItem("id");
   }
 }

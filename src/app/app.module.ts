@@ -23,6 +23,7 @@ import {LocationAddComponent} from "./components/location-add/location-add.compo
 import { LocationListComponent } from './components/location-list/location-list.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HistoryLocationsComponent } from './history-locations/history-locations.component';
+import { GestionUsersComponent } from './components/gestion-users/gestion-users.component';
 
 
 // const oktaAuth = new OktaAuth(myAppConfig.oidc);
@@ -34,9 +35,10 @@ import { HistoryLocationsComponent } from './history-locations/history-locations
 //in imports we will call the array of routes : RouterModule.forRoot(routes)
 const routes: Routes = [
   {path:'register',component:RegisterComponent},
-  {path:'history',component:HistoryLocationsComponent},
-
+  {path:'history',component:HistoryLocationsComponent,canActivate:[AuthGuard], data:{roles:['Admin','User']}},
+  {path:'Users',component:GestionUsersComponent,canActivate:[AuthGuard], data:{roles:['Admin']}},
   {path:'login',component:LoginComponent},
+  {path:'home',component:DashboardComponent},
   {path:'forbidden',component:ForbiddenComponent},
   {path:'add',component:ForbiddenComponent},
   {path:'locations',component:LocationListComponent},
@@ -71,7 +73,8 @@ const routes: Routes = [
     LocationAddComponent,
     LocationListComponent,
     RegisterComponent,
-    HistoryLocationsComponent
+    HistoryLocationsComponent,
+    GestionUsersComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

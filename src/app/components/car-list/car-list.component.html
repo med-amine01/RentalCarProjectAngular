@@ -24,10 +24,10 @@
               <a href="#" class="btn">
                 <i class="fa-solid fa-circle-info link-info"></i>
               </a>
-              <a routerLink="/update/car/{{c.id}}" class="btn">
+              <a routerLink="/update/car/{{c.id}}" class="btn" *ngIf="userService.roleMatch(['Admin'])">
                 <i class="fa-solid fa-pen-to-square link-primary"></i>
               </a>
-              <button type="button" (click)="openPopup(c.id)" class="btn">
+              <button type="button" (click)="openPopup(c.id)" class="btn" *ngIf="userService.roleMatch(['Admin'])">
                 <i class="fa-solid fa-trash link-danger"></i>
               </button>
             <a routerLink="/location/add/{{c.id}}" class="btn btn-primary link-light">Rent Now</a>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button>
-                  <button type="button" class="btn btn-danger" (click)="deleteCar()">Delete</button>
+                  <button type="button" class="btn btn-danger" (click)="deleteCar()" *ngIf="userService.roleMatch(['Admin'])">Delete</button>
                 </div>
               </div>
             </div>
