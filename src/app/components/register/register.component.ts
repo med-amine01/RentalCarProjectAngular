@@ -40,7 +40,6 @@ export class RegisterComponent {
 
     if(this.userFormGroup.invalid){
       this.userFormGroup.markAllAsTouched();
-      alert("aaaaa")
       return;
     }
 
@@ -104,5 +103,4 @@ export class RegisterComponent {
        alert("There was an error: "+error.message());
      });
   }
-
 }

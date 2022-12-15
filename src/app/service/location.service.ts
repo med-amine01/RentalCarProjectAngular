@@ -16,14 +16,6 @@ export class LocationService {
     return this.httpClient.patch<Location>("http://localhost:8080/api/location/updatestatus",location);
   }
   addNewLocation(location : Location) : Observable<any>{
-
-    // const _options = {
-    //   headers: new HttpHeaders({
-    //       'Content-Type': 'application/json',
-    //       'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
-    //     }
-    //   )};
-    // return this.httpClient.post(this.locationApiUrl, location, _options);
     return this.httpClient.post<Location>("http://localhost:8080/api/location/addLocation",location);
   }
 

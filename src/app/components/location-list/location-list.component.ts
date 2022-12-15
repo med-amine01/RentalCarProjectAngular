@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LocationService} from "../../service/location.service";
 import {Location} from "../../common/location";
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-location-list',
@@ -11,11 +10,11 @@ import {ActivatedRoute} from "@angular/router";
 export class LocationListComponent implements OnInit{
 
   location : Location[] = [];
-  constructor(private locationService: LocationService,
-              private route: ActivatedRoute) {
+   locStatBool: boolean = false;
+   locStatReject: boolean = false;
+  constructor(private locationService: LocationService) {
   }
   ngOnInit(): void {
-
     this.getLocations()
   }
 
@@ -26,5 +25,24 @@ export class LocationListComponent implements OnInit{
         this.location = data
       }
     );
+  }
+
+
+  updateStatus(id: number, msg: string) {
+    let location = new Location();
+    location.id = id;
+    location.status = msg;
+
+    this.locationService.updateStatus(location).subscribe(
+      data=>{
+      }
+    )
+    if(msg == "Approved"){
+      this.locStatBool = true;
+    }
+    if(msg == "Rejected"){
+      this.locStatReject = true;
+    }
+    window.location.reload();
   }
 }

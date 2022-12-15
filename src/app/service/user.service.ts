@@ -54,12 +54,8 @@ export class UserService {
     }
   }
   addNewUser(user: User){
-
-
       return this.httpclient.post<User>(this.PATH_OF_API+"/registerNewUser",user,{
         headers: this.requestHeader,
       });
-
-
   }
 }
